@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的工具导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+        }
+
+        /* 分类标题 */
+        .category {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .category:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .category-icon {
+            font-size: 1.5rem;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardIn 0.6s ease-out forwards;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #667eea;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 工作类卡片渐变 */
+        .category-work .card-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .category-work .card::before {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .category-work .card-arrow {
+            color: #667eea;
+        }
+
+        /* 生活类卡片渐变 */
+        .category-life .card-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .category-life .card::before {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+        }
+
+        .category-life .card-arrow {
+            color: #f5576c;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>🚀 我的工具导航</h1>
+            <p>高效工作 · 品质生活</p>
+        </header>
+
+        <!-- 工作类 -->
+        <section class="category category-work">
+            <div class="category-title">
+                <span class="category-icon">💼</span>
+                <span>工作类</span>
+            </div>
+            <div class="card-grid" id="work-cards"></div>
+        </section>
+
+        <!-- 生活类 -->
+        <section class="category category-life">
+            <div class="category-title">
+                <span class="category-icon">🏠</span>
+                <span>生活类</span>
+            </div>
+            <div class="card-grid" id="life-cards"></div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2026 个人工具导航 · Powered by GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script>
+        // ==========================================
+        // 数据配置区 - 后续添加新链接只需修改这里
+        // ==========================================
+        const workTools = [
+            {
+                title: 'AI工具在策划设计工作的应用指南',
+                desc: '系统化梳理AI工具在策划与设计工作流中的应用方法与实战技巧',
+                icon: '🤖',
+                url: 'https://yangtf2000.github.io/ai888/'
+            },
+            {
+                title: 'AI工具应用指南（飞书版）',
+                desc: '飞书多维表格版AI工具索引，便于团队协作与快速查询',
+                icon: '📋',
+                url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17afshq92re'
+            },
+            {
+                title: '城市体检报告AI生成完全指南',
+                desc: '利用AI高效生成城市体检报告的完整操作手册与模板',
+                icon: '🏙️',
+                url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17aftyuqc01/'
+            },
+            {
+                title: '城市更新资金申报查询手册',
+                desc: '城市更新项目资金申报政策查询与申报流程指引',
+                icon: '💰',
+                url: 'https://codebuddy.work/agents/share/o4lDwVvRyCUYW7M-7yYYRkpaRdSxGPDfmeMuUZM9poNhBrfMftrmlJpUnyT6j9RN?platform=workbuddy'
+            }
+        ];
+
+        const lifeTools = [
+            {
+                title: '山西旅行计划',
+                desc: '山西旅行行程规划，包含景点、路线与出行安排',
+                icon: '🏔️',
+                url: 'https://codebuddy.work/agents/share/ZrVlO3MVhLt3ewhbG00LnyjLY20wBGf7Ce1WCyx0Xbtzf2veLuWBTs169eMpmwAq?platform=workbuddy'
+            },
+            {
+                title: '每日待办清单',
+                desc: 'Daily TodoList，高效管理每日任务与待办事项',
+                icon: '✅',
+                url: 'https://codebuddy.work/agents/share/fWNXuK96JJ9kXOMIAGiClzP7RhuysWi-bqhvnlSf_i-krcd_3SumHZFnfpfqu2ds?platform=workbuddy'
+            },
+            {
+                title: '暑假计划安排表',
+                desc: '暑期学习与生活计划安排，合理规划假期时间',
+                icon: '📅',
+                url: 'https://codebuddy.work/agents/share/fWNXuK96JJ9kXOMIAGiClzP7RhuysWi-bqhvnlSf_i-krcd_3SumHZFnfpfqu2ds?platform=workbuddy'
+            }
+        ];
+
+        // ==========================================
+        // 渲染卡片
+        // ==========================================
+        function renderCards(tools, containerId, delayBase = 0) {
+            const container = document.getElementById(containerId);
+            tools.forEach((tool, index) => {
+                const card = document.createElement('a');
+                card.href = tool.url;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+                card.className = 'card';
+                card.style.animationDelay = `${delayBase + index * 0.1}s`;
+
+                card.innerHTML = `
+                    <div class="card-icon">${tool.icon}</div>
+                    <h3 class="card-title">${tool.title}</h3>
+                    <p class="card-desc">${tool.desc}</p>
+                    <span class="card-arrow">→</span>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // 初始化渲染
+        renderCards(workTools, 'work-cards', 0.2);
+        renderCards(lifeTools, 'life-cards', 0.6);
+    </script>
+</body>
+</html>
