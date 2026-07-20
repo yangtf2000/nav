@@ -260,13 +260,22 @@
             <p>高效工作 · 品质生活</p>
         </header>
 
-        <!-- 工作类 -->
+        <!-- 通用AI工具 -->
         <section class="category category-work">
             <div class="category-title">
-                <span class="category-icon">💼</span>
-                <span>工作类</span>
+                <span class="category-icon">🤖</span>
+                <span>通用AI工具</span>
             </div>
-            <div class="card-grid" id="work-cards"></div>
+            <div class="card-grid" id="ai-cards"></div>
+        </section>
+
+        <!-- 城市规划与更新 -->
+        <section class="category category-work">
+            <div class="category-title">
+                <span class="category-icon">🏙️</span>
+                <span>城市规划与更新</span>
+            </div>
+            <div class="card-grid" id="city-cards"></div>
         </section>
 
         <!-- 生活类 -->
@@ -288,13 +297,24 @@
         // ==========================================
         // 数据配置区 - 后续添加新链接只需修改这里
         // ==========================================
-        const workTools = [
+        // 通用AI工具
+        const aiTools = [
             {
                 title: 'AI工具在策划设计工作的应用指南',
                 desc: '系统化梳理AI工具在策划与设计工作流中的应用方法与实战技巧',
                 icon: '🤖',
                 url: 'https://yangtf2000.github.io/ai888/'
             },
+            {
+                title: '设计院AI使用简明指南',
+                desc: '设计院日常工作中AI工具的快速上手与实用技巧汇总',
+                icon: '📐',
+                url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17ag9ywh3qr'
+            }
+        ];
+
+        // 城市规划与更新
+        const cityTools = [
             {
                 title: '城市体检报告AI生成完全指南',
                 desc: '利用AI高效生成城市体检报告的完整操作手册与模板',
@@ -306,6 +326,18 @@
                 desc: '城市更新项目资金申报政策查询与申报流程指引',
                 icon: '💰',
                 url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17aftyuqc01/'
+            },
+            {
+                title: '城市更新AI编制指南',
+                desc: '城市更新项目方案编制的AI辅助方法与流程指引',
+                icon: '🔄',
+                url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17ag963usgf'
+            },
+            {
+                title: '片区策划AI编制指南',
+                desc: '片区策划方案编制中的AI应用方法与实战模板',
+                icon: '🗺️',
+                url: 'https://4kn89jqz266k3.feishuapp.com/app/app_17agbk7ke5x'
             }
         ];
 
@@ -355,8 +387,9 @@
         }
 
         // 初始化渲染
-        renderCards(workTools, 'work-cards', 0.2);
-        renderCards(lifeTools, 'life-cards', 0.6);
+        renderCards(aiTools, 'ai-cards', 0.2);
+        renderCards(cityTools, 'city-cards', 0.4);
+        renderCards(lifeTools, 'life-cards', 0.7);
     </script>
 </body>
 </html>
