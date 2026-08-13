@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YTF · 个人存档</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <div class="home-wrap">
+    <div class="home-hero">
+      <div class="kicker">PERSONAL ARCHIVE · 个人存档</div>
+      <h1>多面</h1>
+      <p>AI 札记、工作存档、给孩子、私人手记，政策周报与公众号，分格收在一处暗色空间。</p>
+    </div>
+    <div class="sec-grid" id="home-grid"></div>
+  </div>
+  <script src="content/sections.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById('home-grid');
+      (window.SECTIONS || []).forEach(function (s) {
+        var a = document.createElement('a');
+        a.className = 'sec-card';
+        a.href = 'sections/' + s.id + '/';
+        var isPrivate = s.visibility === 'private';
+        var pill = isPrivate
+          ? '<span class="pill lock">🔒 ' + (s.tag || '仅直链') + '</span>'
+          : '<span class="pill">' + (s.tag || '') + '</span>';
+        a.innerHTML = '<h3>' + s.title + '</h3>'
+                    + '<div class="desc">' + (s.subtitle || '') + '</div>'
+                    + pill;
+        grid.appendChild(a);
+      });
+    })();
+  </script>
+</body>
+</html>
